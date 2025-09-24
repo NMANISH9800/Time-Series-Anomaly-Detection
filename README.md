@@ -1,145 +1,100 @@
-# TAB: Unified Benchmarking of Time Series Anomaly Detection Methods
 
-[![PVLDB](https://img.shields.io/badge/PVLDB'25-TAB-orange)](https://arxiv.org/pdf/2403.20150.pdf)  [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)  [![PyTorch](https://img.shields.io/badge/PyTorch-2.4.1-blue)](https://pytorch.org/)  ![Stars](https://img.shields.io/github/stars/decisionintelligence/TAB)  
+# Time Series Anomaly Detection
 
+## Project Description
+**Time Series Anomaly Detection** is an open-source library designed for researchers working with time series anomaly detection. This project provides an end-to-end framework for evaluating and comparing the performance of different time series anomaly detection models. The library includes several baseline algorithms and various evaluation strategies and metrics to assess the performance of models on time series data.
 
-> [!IMPORTANT]
-> If you find this project helpful, please don't forget to give it a ⭐ Star to show your support. Thank you!
+### Key Features:
+- **End-to-End Evaluation**: Clean codebase for benchmarking time series anomaly detection methods.
+- **Multiple Models**: Includes baseline models for anomaly detection.
+- **Evaluation Metrics**: Compare the performance of models using various metrics.
+- **Pre-trained Checkpoints**: Ready-to-use pre-trained models for benchmarking.
 
+## Project Requirements
 
+Before running the project, ensure that you have the following installed:
 
-🚩 **News** (2025.05) **[TAB](https://arxiv.org/pdf/2506.18046) has been accepted by PVLDB 2025**.
+1. **Python 3.8+**  
+   You can install Python from [python.org](https://www.python.org/).
 
+2. **Required Libraries**  
+   Install the dependencies using the `requirements.txt` file:
+   ```bash
+   pip install -r requirements.txt
+````
 
+3. **Additional Tools**:
 
+   * Ensure **Git** is installed for version control.
+   * You may also need **Jupyter Notebook** for running tutorials or experiments.
 
+## How to Run the Project Locally
 
-## Table of Contents
+### Step 1: Clone the Repository
 
-1. [Introduction](#introduction)
+Clone the repository to your local machine:
 
-1. [Quickstart](#Quickstart)
+```bash
+git clone https://github.com/NMANISH9800/Time-Series-Anomaly-Detection.git
+cd Time-Series-Anomaly-Detection
+```
 
-1. [FAQ](#FAQ)
+### Step 2: Set Up the Virtual Environment
 
-1. [Citation](#Citation)
+Create and activate a virtual environment:
 
-1. [Acknowledgement](#Acknowledgement)
+```bash
+python -m venv ts_env
+```
 
-1. [Contact](#Contact)
+Activate the virtual environment:
 
-   
+* **Windows**:
 
-## Introduction
+  ```bash
+  ts_env\Scripts\activate
+  ```
+* **macOS/Linux**:
 
-TAB is an open-source library designed for time series anomaly detection researchers.
+  ```bash
+  source ts_env/bin/activate
+  ```
 
-We provide a clean codebase for end-to-end evaluation of time series anomaly detection models, comparing their performance with baseline algorithms under various evaluation strategies and metrics.
+### Step 3: Install Dependencies
 
-The below figure provides a visual overview of TAB's pipeline.
+Install all the necessary dependencies:
 
-<div align="center">
-    <img src="docs/figures/TAB_pipeline.png" alt="TAB_pipeline"  width="70%" />
-</div>
-
-
-
-
-The table below provides a visual overview of how TAB's key features compare to other libraries for time series anomaly detection.
-
-<div align="center">
-    <img src="docs/figures/feature.png" alt="TAB_pipeline"  width="100%" />
-</div>
-
-
-
-## Quickstart
-
-> [!IMPORTANT]
->
-> this project is fully tested under python 3.8, it is recommended that you set the Python version to 3.8.
-
-1. Installation:
-
-Given a python environment (**note**: this project is fully tested under **python 3.8**), install the dependencies with the following command:
-
-```shell
+```bash
 pip install -r requirements.txt
 ```
 
-2. Data preparation
+### Step 4: Prepare Data
 
-Prepare Data. You can obtain the well pre-processed datasets from [Google Drive](https://drive.google.com/file/d/1V5BAHWBKU8uih3hE1R7WdF6_crZlIbQT/view?usp=drive_link). Then place the downloaded data under the folder `./dataset`.  
+1. Download the pre-processed datasets from [Google Drive](https://drive.google.com/file/d/1V5BAHWBKU8uih3hE1R7WdF6_crZlIbQT/view?usp=drive_link).
+2. Place the downloaded dataset in the `./dataset` folder.
 
-3. Checkpoints preparation
+### Step 5: Prepare Checkpoints
 
-You can download the checkpoints from [Google Drive](https://drive.google.com/file/d/14VKcv_sIPDJgSgzOxUIN80kAzqXdzhC0/view?usp=sharing). After obtaining the files, follow the steps below to organize them:
-- For LLM-based models, move the files from `checkpoints/llm_checkpoints` to the folder `ts_benchmark/baselines/LLM/checkpoints`.
-- For pre-train models (UniTS, Timer and TimesFM), move the files from `checkpoints/pre_train_checkpoints` to the folder `ts_benchmark/baselines/pre_train/checkpoints`.
-- And the other models' checkpoints can be obtained from Huggingface by the code.
+1. Download the checkpoints from [Google Drive](https://drive.google.com/file/d/14VKcv_sIPDJgSgzOxUIN80kAzqXdzhC0/view?usp=sharing).
+2. Move the checkpoint files to the appropriate folders:
 
-Make sure all files are placed in the correct directories to ensure proper functionality.
+   * For LLM-based models, move to `ts_benchmark/baselines/LLM/checkpoints`.
+   * For pre-trained models (UniTS, Timer, TimesFM), move to `ts_benchmark/baselines/pre_train/checkpoints`.
+   * Additional models' checkpoints can be obtained via Huggingface.
 
-4. Train and evaluate model
+### Step 6: Train and Evaluate Model
 
-We provide the experiment scripts for all benchmarks under the folder `./scripts/multivariate_detection`, and `./scripts/univariate_detection`. For example, you can reproduce an experiment result as the following:
+Run the experiment script to train and evaluate the model. For example, to run the **CATCH** experiment:
 
-```shell
+```bash
 sh ./scripts/CATCH.sh
 ```
 
+## Conclusion
 
-
-## FAQ
-
-1. Is there code in TFB's code base to compute the characteristics of the dataset?
-
-TFB has open-sourced the [code](https://github.com/decisionintelligence/TFB/blob/master/characteristics_extractor/Characteristics_Extractor.py) for computing time series characteristics, such as trend, seasonality, stationarity, shifting, transition, correlation, and more. Both [Chinese](https://github.com/decisionintelligence/TFB/blob/master/characteristics_extractor/Readme_chn.md) and [English](https://github.com/decisionintelligence/TFB/blob/master/characteristics_extractor/Readme_en.md) documentation are provided.
-
-
-
-## Citation
-
-If you find this repo useful, please cite our paper.
+This project provides a comprehensive framework for benchmarking and evaluating time series anomaly detection models. It allows you to compare different models under consistent conditions, ensuring you can assess their effectiveness in detecting anomalies in time series data.
 
 ```
-@inproceedings{qiu2025tab,
-title      = {{TAB}: Unified Benchmarking of Time Series Anomaly Detection Methods},
-author     = {Xiangfei Qiu and Zhe Li and Wanghui Qiu and Shiyan Hu and Lekui Zhou and Xingjian Wu and Zhengyu Li and Chenjuan Guo and Aoying Zhou and Zhenli Sheng and Jilin Hu and Christian S. Jensen and Bin Yang},
-booktitle  = {Proc. {VLDB} Endow.},
-year       = {2025}
-}
 
-
-@inproceedings{wu2025catch,
-title     = {{CATCH}: Channel-Aware multivariate Time Series Anomaly Detection via Frequency Patching},
-author    = {Wu, Xingjian and Qiu, Xiangfei and Li, Zhengyu and Wang, Yihang and Hu, Jilin and Guo, Chenjuan and Xiong, Hui and Yang, Bin},
-booktitle = {ICLR},
-year      = {2025}
-}
+This README file provides the necessary instructions for setting up and running the **Time Series Anomaly Detection** project locally. Let me know if you need further adjustments!
 ```
-
-
-
-## Acknowledgement
-
-The development of this library has been supported by **Huawei Cloud**, and we would like to acknowledge their contribution and assistance.
-
-
-
-## Contact
-
-If you have any questions or suggestions, feel free to contact:
-
-- [Xiangfei Qiu](https://qiu69.github.io/) (xfqiu@stu.ecnu.edu.cn)
-- [Xingjian Wu](https://ccloud0525.github.io/) (xjwu@stu.ecnu.edu.cn)
-
-
-Or describe it in Issues.
-
-We invite you to join the OpenTS community on WeChat. We run a group chat on WeChat, and you can get the access by scanning the [QR code](./docs/figures/QR.png). By joining the community, you can get the latest updates on OpenTS, share your ideas, and discuss with other members.
-
-Those who wish to join can first scan the [QR code](./docs/figures/QR.png) to contact me via WeChat. Please **include your name and research direction in the remarks** when adding me. After your application is approved, we will invite you to join the group. Once you are in the group, please update your group nickname to **"Name + School/Institution + Research Direction."** Members who fail to update their remarks within a week will be regularly removed by the administrator.
-
-
-
